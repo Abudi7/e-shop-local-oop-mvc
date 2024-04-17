@@ -15,7 +15,7 @@
   }
 
   // Load View 
-  public function view($view, $data = []) {
+  public function view($view, $dataBase = []) {
     // Check for view file 
     $viewFile = '../app/Views/' . $view . '.php';
     if (file_exists($viewFile)) {
