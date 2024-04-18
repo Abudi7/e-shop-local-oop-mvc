@@ -7,6 +7,7 @@ function __construct() {
 }
 
 public function index() {
+  //$this->postModel = $this->model('Login');
   $this->view('Home/index');
 }
 

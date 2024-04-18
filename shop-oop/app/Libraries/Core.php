@@ -16,7 +16,6 @@
     // print_r($this->getUrl());
 
     $url = $this->getUrl();
-
     // Look in controllers for first Value 
     if (file_exists('../app/Controllers/'.ucwords($url[0]).'.php')) {
       // If exists , set as controller 

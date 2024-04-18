@@ -6,7 +6,8 @@ require_once('../app/Config/config.php');
 // require_once('Libraries/Controller.php');
 // require_once('Libraries/Database.php');
 
-
+// Load Helpers Folder 
+require_once('../app/Helpers/urlHelpers.php');
 // Autoload Core Libraries
 spl_autoload_register(function($className){
   require_once('Libraries/'.$className.'.php');
