@@ -7,7 +7,9 @@ function __construct() {
 }
 
 public function index() {
-  //$this->postModel = $this->model('Login');
+  session_start();
+  $email = $_SESSION['email'];
+  $this->model('Customers')->login($email);
   $this->view('Home/index');
 }
 

@@ -44,17 +44,36 @@ class Customers {
   }
  
   // ask about if email Exists
-  // public function emailExists($email)
-  // {
-  //   // Assuming you're using PDO for database operations
-  //   $query = "SELECT COUNT(*) AS count FROM customers WHERE email = :email";
-  //   $this->db->query($query);
-  //   $this->db->bindParam(':email', $email);
-  //   $this->db->execute();
-  //   $result = $this->db->fetchSingle();
+  public function emailExists($email)
+  {
+    // Assuming you're using PDO for database operations
+    $query = "SELECT * FROM customers WHERE email = :email";
+    $this->db->query($query);
+    $this->db->bindParam(':email', $email);
+    $this->db->execute();
+    $result = $this->db->fetchSingle();
 
-  //   // If count is greater than 0, email exists
-  //   return $result['count'] > 0;
-  // }
+    // If count is greater than 0, email exists
+    if ($this->db->countRow() > 0) {
+      return true;
+    }else {
+      return false;
+    }
+  }
+
+  /**
+   * This method retrieves customer data based on email for login purposes.
+   *
+   * @param string $email The email of the customer.
+   * @return array|bool Returns customer data if found, otherwise returns false.
+   */
+
+   public function login ($email)
+   {
+    $this->db->query("SELECT * FROM customers WHERE email = :email");
+    $this->db->bindParam(':email', $email);
+    $this->db->execute();
+    return $result = $this->db->fetchSingle();
+   }
 
 }

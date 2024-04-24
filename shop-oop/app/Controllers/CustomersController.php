@@ -1,4 +1,5 @@
 <?php 
+
 class CustomersController extends Controller {
   private $userModel;
   public function __construct()
@@ -26,10 +27,10 @@ class CustomersController extends Controller {
       
 
       // Check if email is already taken
-      // if ($this->model('Customers')->emailExists($email)) {
-      //   echo "<div class='alert alert-danger' role='alert'>Email address already exists.</div>";
-      //   return;
-      // }
+      if ($this->model('Customers')->emailExists($email)) {
+        echo "<div class='alert alert-danger' role='alert'>Email address already exists.</div>";
+        return;
+      }
      
       // Check password length
       if (strlen($password) < 8) {
@@ -61,10 +62,59 @@ class CustomersController extends Controller {
     $this->view('customers/register');
   }
 
+  /**
+   * This method handles the login functionality for customers.
+   */
   public function login()
   {
-    
-    $this->view('customers/login');
+    session_start();
+      // Initialize logged-in user data
+      $loggedInUserData = null;
+
+      // Check if form is submitted
+      if ($_SERVER["REQUEST_METHOD"] === "POST") {
+          // Get email and password from form
+          $email = $_POST['email'];
+          $password = $_POST['password'];
+
+          // Call the login method from the Customers model to retrieve user data
+          $loggedInUserData = $this->model('Customers')->login($email);
+
+          // Check if user exists and login is successful
+          if ($loggedInUserData) {
+            $_SESSION['name'] = $loggedInUserData->firstname;
+            $_SESSION['userId'] = $loggedInUserData->id;
+            $_SESSION['role'] = $loggedInUserData->role;
+              // Redirect user after successful login attempt
+              redirect('HomeController');
+          }
+      }
+
+      // Pass logged-in user data to the view
+      $this->view('customers/login', ['loggedInUserData' => $loggedInUserData]);
+  }
+   
+
+  /**
+   * This method handles the logout functionality for customers.
+   */
+  public function logout()
+  {
+      session_start();
+      session_destroy();
+
+      // Redirect user to the login page after logout
+      redirect('CustomersController/login');
+  }
+
+  /**
+   * Retrieve the user's name from the session.
+   */
+  public function getUserName() {
+    if (isset($_SESSION['name'])) {
+        return $_SESSION['name'];
+    }
+    return null;
   }
 
 }
