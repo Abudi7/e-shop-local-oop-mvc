@@ -12,8 +12,10 @@ class Products {
     
   }
 
-  public function Products()
+  public function getProducts()
   {
-    $this->db->query('SELECT * FROM products');
+      $this->db->query('SELECT * FROM products');
+      $results = $this->db->fetchAll();
+      return $results;
   }
 }

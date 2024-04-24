@@ -29,7 +29,7 @@
                   <a class="nav-link" href="<?= BASEROOT ?>HomeController"><i class="fas fa-home"></i> Home</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="<?= BASEROOT ?>ProductsController"><i class="fas fa-box"></i> Products</a>
+                  <a class="nav-link" href="<?= BASEROOT ?>ProductsController/products"><i class="fas fa-box"></i> Products</a>
               </li>
               <li class="nav-item">
                   <?php if(isset($_SESSION['userId'])): ?>
